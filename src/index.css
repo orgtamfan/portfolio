@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+  font-family: 'DM Sans', sans-serif;
+  color: #182220;
+  background: #f1f3ed;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --ink: #182220;
+  --muted: #64706a;
+  --accent: #d7ff64;
+  --surface: #fffefa;
+  --line: #dfe4dc;
+  --page-width: 1160px;
+}
+
+* { box-sizing: border-box; }
+html { min-width: 320px; scroll-behavior: smooth; }
+body { min-width: 320px; min-height: 100vh; margin: 0; color: var(--ink); line-height: 1.65; }
+
+#root {
+  width: min(100%, var(--page-width));
+  min-height: 100vh;
+  margin: 0 auto;
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: 0 0 50px rgb(24 34 32 / 5%);
+}
+
+header {
+  position: sticky;
+  z-index: 5;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 76px;
+  padding: 0 clamp(1.5rem, 7vw, 5.5rem);
+  background: rgb(255 254 250 / 92%);
+  border-bottom: 1px solid rgb(223 228 220 / 75%);
+  backdrop-filter: blur(14px);
+}
+
+header::before {
+  content: 'PORTFOLIO / 2026';
+  margin-right: auto;
+  color: var(--muted);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+}
+
+header nav ul { display: flex; gap: clamp(1.25rem, 4vw, 3rem); margin: 0; padding: 0; list-style: none; }
+nav a { position: relative; color: var(--ink); font-size: .9rem; font-weight: 600; text-decoration: none; transition: color 160ms ease; }
+nav a::after { position: absolute; right: 0; bottom: -7px; left: 0; height: 2px; content: ''; background: #758a32; transform: scaleX(0); transform-origin: left; transition: transform 160ms ease; }
+nav a:hover, nav a:focus-visible, nav a[aria-current='location'] { color: #687d27; }
+nav a:hover::after, nav a:focus-visible::after, nav a[aria-current='location']::after { transform: scaleX(1); }
+
+main { display: grid; gap: 0; padding: 0 clamp(1.5rem, 7vw, 5.5rem); }
+section { position: relative; padding: clamp(3.5rem, 9vw, 7rem) 0; scroll-margin-top: 76px; }
+#about { min-height: 400px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; border-bottom: 1px solid var(--line); }
+#about::before { content: 'HELLO, I’M'; margin-bottom: 1rem; color: #758a32; font-size: .75rem; font-weight: 700; letter-spacing: .2em; }
+h1, h2 { margin: 0; color: var(--ink); font-family: 'Space Grotesk', sans-serif; line-height: 1.12; }
+h1 { max-width: 750px; font-size: clamp(3rem, 8vw, 6rem); letter-spacing: -.065em; }
+#about h1::after { content: '.'; color: #829b35; }
+p { max-width: 620px; margin: 1.25rem 0 0; color: var(--muted); font-size: 1.05rem; }
+
+#projects > h1, #contact > h1 { font-size: clamp(2.4rem, 5vw, 3.5rem); letter-spacing: -.055em; }
+#projects > h1::before, #contact > h1::before { display: block; margin-bottom: .85rem; color: #758a32; font-family: 'DM Sans', sans-serif; font-size: .72rem; font-weight: 700; letter-spacing: .2em; }
+#projects > h1::before { content: 'SELECTED WORK'; }
+#contact > h1::before { content: 'SAY HELLO'; }
+#projects > ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 2.25rem 0 0; padding: 0; list-style: none; }
+#projects > ul > li { position: relative; min-height: 230px; padding: clamp(1.5rem, 3vw, 2.25rem); overflow: hidden; background: #f1f3ed; border: 1px solid var(--line); border-radius: 4px; transition: transform 200ms ease, box-shadow 200ms ease; }
+#projects > ul > li::before { position: absolute; top: -2rem; right: -1rem; color: rgb(24 34 32 / 5%); content: '0' counter(project); counter-increment: project; font-family: 'Space Grotesk', sans-serif; font-size: 10rem; font-weight: 700; line-height: 1; }
+#projects > ul { counter-reset: project; }
+#projects > ul > li:hover { transform: translateY(-5px); box-shadow: 0 14px 30px rgb(24 34 32 / 9%); }
+h2 { position: relative; font-size: 1.45rem; letter-spacing: -.035em; }
+#projects li p { position: relative; margin-top: .65rem; font-size: .95rem; }
+#projects li a { position: relative; display: inline-flex; align-items: center; gap: .5rem; margin-top: 1.5rem; color: var(--ink); font-size: .85rem; font-weight: 700; text-decoration: none; }
+#projects li a::after { content: '↗'; color: #687d27; transition: transform 160ms ease; }
+#projects li a:hover::after { transform: translate(3px, -3px); }
+#contact { margin: 0 calc(clamp(1.5rem, 7vw, 5.5rem) * -1); padding: clamp(3.5rem, 8vw, 6rem) clamp(1.5rem, 7vw, 5.5rem); background: #182220; }
+#contact h1 { color: #fffefa; }
+#contact > p { color: #c1cbc4; }
+#contact > p a { color: var(--accent); text-decoration-color: rgb(215 255 100 / 50%); text-underline-offset: 4px; }
+footer { display: flex; justify-content: space-between; gap: 1rem; padding: 1.25rem clamp(1.5rem, 7vw, 5.5rem); color: #b8c2bb; background: #182220; border-top: 1px solid rgb(255 255 255 / 13%); font-size: .78rem; }
+footer p { margin: 0; color: inherit; font-size: inherit; }
+:focus-visible { outline: 3px solid #829b35; outline-offset: 4px; }
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 550ms ease, transform 550ms ease; }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 640px) {
+  header { min-height: 66px; padding-inline: 1.25rem; }
+  header::before { content: 'PORTFOLIO'; font-size: .65rem; }
+  header nav ul { gap: 1rem; }
+  nav a { font-size: .8rem; }
+  main { padding-inline: 1.25rem; }
+  #about { min-height: 350px; }
+  #projects > ul { grid-template-columns: 1fr; }
+  #projects > ul > li { min-height: 200px; }
+  #contact { margin-inline: -1.25rem; padding-inline: 1.25rem; }
+  footer { flex-direction: column; padding-inline: 1.25rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+  .reveal { opacity: 1; transform: none; }
+}
