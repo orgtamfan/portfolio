@@ -60,7 +60,7 @@ nav a:hover::after, nav a:focus-visible::after, nav a[aria-current='location']::
 main { display: grid; gap: 0; padding: 0 clamp(1.5rem, 7vw, 5.5rem); }
 section { position: relative; padding: clamp(3.5rem, 9vw, 7rem) 0; scroll-margin-top: 76px; }
 #about { min-height: 400px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; border-bottom: 1px solid var(--line); }
-#about::before { content: 'HELLO, I’M'; margin-bottom: 1rem; color: #758a32; font-size: .75rem; font-weight: 700; letter-spacing: .2em; }
+#about::before { content: 'HELLO, I’M OLAN SIALLAGAN'; margin-bottom: 1rem; color: #758a32; font-size: .75rem; font-weight: 700; letter-spacing: .2em; }
 h1, h2 { margin: 0; color: var(--ink); font-family: 'Space Grotesk', sans-serif; line-height: 1.12; }
 h1 { max-width: 750px; font-size: clamp(3rem, 8vw, 6rem); letter-spacing: -.065em; }
 #about h1::after { content: '.'; color: #829b35; }

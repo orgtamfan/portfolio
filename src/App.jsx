@@ -1,120 +1,73 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+const projects = [
+  {
+    name: 'Laundry Management System',
+    description:
+      'A PHP and MySQL web app for managing laundry staff, service packages, customer orders, payments, and transaction history across wash, dry-cleaning, and per-item services.',
+    technologies: 'PHP | MySQL',
+    url: 'https://github.com/orgtamfan/Laundry_App',
+  },
+  {
+    name: 'YouTube Audio & Video Downloader',
+    description:
+      'A Python command-line tool that accepts multiple YouTube links and downloads audio as MP3, video as 480p AVI, or both. FFmpeg handles conversion and merging.',
+    technologies: 'Python | pytubefix | FFmpeg',
+    url: 'https://github.com/orgtamfan/yt_download_with_pytubefix',
+  },
+]
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
+      <header>
+        <nav aria-label="Main navigation">
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <main>
+        <section id="about">
+          <h1>About Me</h1>
+          <p>I build practical software tools and applications.</p>
+        </section>
+
+        <section id="projects">
+          <h1>Projects</h1>
+          <ul>
+            {projects.map((project) => (
+              <li key={project.url}>
+                <h2>{project.name}</h2>
+                <p>{project.description}</p>
+                <p>{project.technologies}</p>
+                <a href={project.url} target="_blank" rel="noreferrer">
+                  View project on GitHub
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section id="contact">
+          <h1>Get in Touch</h1>
           <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
+            Find me on{' '}
+            <a href="https://github.com/orgtamfan" target="_blank" rel="noreferrer">
+              GitHub
+            </a>
+            ,
+            <a href="https://api.whatsapp.com/send/?phone=%2B6289636344630&text&type=phone_number&app_absent=0" target="_blank" rel="noreferrer">
+              WhatsApp
+            </a>
           </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+        </section>
+      </main>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+      <footer>
+        <p>Copyright 2026 Olan Siallagan</p>
+      </footer>
     </>
   )
 }
