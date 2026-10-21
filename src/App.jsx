@@ -7,6 +7,13 @@ const projects = [
     url: 'https://github.com/orgtamfan/Laundry_App',
   },
   {
+    name: 'Sentiment Analysis of Gaming Communities',
+    description:
+      'A research project comparing sentiment in CS2 and VALORANT Reddit communities. It prepares human-reviewed labels and evaluates a TF-IDF and Multinomial Naive Bayes classifier across positive, neutral, and negative comments.',
+    technologies: 'Python | scikit-learn | VADER | NLP',
+    url: 'https://github.com/orgtamfan/sentiment-analysis',
+  },
+  {
     name: 'YouTube Audio & Video Downloader',
     description:
       'A Python command-line tool that accepts multiple YouTube links and downloads audio as MP3, video as 480p AVI, or both. FFmpeg handles conversion and merging.',
