@@ -213,6 +213,13 @@ document.querySelector('#form').addEventListener('submit', event => {
   const subject = encodeURIComponent(`Portfolio message: ${topic}`)
   const body = encodeURIComponent(`Hi Olan,\n\n${message}\n\nFrom: ${name}${contact ? `\nContact: ${contact}` : ''}\nTopic: ${topic}`)
   const status = document.querySelector('#status')
-  status.textContent = 'Opening your email app with the message addressed to Olan.'
-  window.location.href = `mailto:olansiallagan6@gmail.com?subject=${subject}&body=${body}`
+  const composeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=olansiallagan6%40gmail.com&su=${subject}&body=${body}`
+  status.textContent = 'Opening a Gmail draft. If it does not open, '
+  const fallbackLink = document.createElement('a')
+  fallbackLink.href = composeUrl
+  fallbackLink.target = '_blank'
+  fallbackLink.rel = 'noopener noreferrer'
+  fallbackLink.textContent = 'open Gmail here'
+  status.append(fallbackLink, '.')
+  window.open(composeUrl, '_blank', 'noopener,noreferrer')
 })
