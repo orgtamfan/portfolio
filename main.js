@@ -6,6 +6,8 @@ const projects = [
   { title: 'YouTube Audio & Video Downloader', year: 'Project', category: 'Python', description: 'A command-line tool for processing multiple YouTube URLs and saving audio or video with FFmpeg conversion and merge support.', tags: ['Python', 'pytubefix', 'FFmpeg'], color: 'c-amber', art: 'art-circle', url: 'https://github.com/orgtamfan/yt_download_with_pytubefix', facts: [['Formats', 'MP3 audio, AVI video'], ['Features', 'Batch URLs, CLI options, logging']] },
 ]
 
+document.documentElement.classList.add('js')
+
 const grid = document.querySelector('#grid')
 const filters = document.querySelector('#filters')
 const modal = document.querySelector('#modal')
@@ -81,7 +83,57 @@ menuButton.addEventListener('click', () => {
   menuButton.setAttribute('aria-expanded', String(open))
   menuButton.setAttribute('aria-label', open ? 'Close menu' : 'Open menu')
 })
-nav.addEventListener('click', event => { if (event.target.closest('a')) closeMenu() })
+let navScrollFrame = null
+let savedScrollBehavior = null
+nav.addEventListener('click', event => {
+  const link = event.target.closest('a[href^="#"]')
+  if (!link) return
+
+  closeMenu()
+  const target = document.getElementById(decodeURIComponent(link.hash.slice(1)))
+  if (!target) return
+
+  event.preventDefault()
+  if (navScrollFrame !== null) cancelAnimationFrame(navScrollFrame)
+  if (savedScrollBehavior !== null) {
+    document.documentElement.style.scrollBehavior = savedScrollBehavior
+    savedScrollBehavior = null
+  }
+
+  history.pushState(null, '', link.hash)
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const currentY = window.scrollY
+  const scrollMargin = parseFloat(getComputedStyle(target).scrollMarginTop) || 0
+  const destinationY = Math.max(0, target.getBoundingClientRect().top + currentY - scrollMargin)
+
+  if (reduceMotion || Math.abs(destinationY - currentY) < 2) {
+    window.scrollTo({ top: destinationY, behavior: 'auto' })
+    return
+  }
+
+  const distance = destinationY - currentY
+  const duration = Math.min(1200, Math.max(650, Math.abs(distance) * 0.5))
+  const startTime = performance.now()
+  savedScrollBehavior = document.documentElement.style.scrollBehavior
+  document.documentElement.style.scrollBehavior = 'auto'
+
+  const animateScroll = now => {
+    const progress = Math.min((now - startTime) / duration, 1)
+    const easedProgress = 1 - Math.pow(1 - progress, 4)
+    document.documentElement.scrollTop = currentY + distance * easedProgress
+
+    if (progress < 1) {
+      navScrollFrame = requestAnimationFrame(animateScroll)
+    } else {
+      navScrollFrame = null
+      document.documentElement.scrollTop = destinationY
+      document.documentElement.style.scrollBehavior = savedScrollBehavior
+      savedScrollBehavior = null
+    }
+  }
+
+  navScrollFrame = requestAnimationFrame(animateScroll)
+})
 
 const header = document.querySelector('#header')
 const progress = document.querySelector('#progress')
@@ -107,6 +159,23 @@ const revealObserver = new IntersectionObserver(entries => {
   })
 }, { threshold: 0.12 })
 document.querySelectorAll('.reveal').forEach(element => revealObserver.observe(element))
+setTimeout(() => {
+  document.querySelectorAll('.card').forEach(element => revealObserver.observe(element))
+}, 100)
+
+const aboutImage = document.querySelector('.about .photo img')
+const heroHeading = document.querySelector('.hero h1')
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY
+
+  if (heroHeading) {
+    heroHeading.style.transform = `translate3d(0, ${scrollY * 0.15}px, 0)`
+  }
+
+  if (aboutImage) {
+    aboutImage.style.transform = `translate3d(0, ${scrollY * 0.05}px, 0)`
+  }
+}, { passive: true })
 
 const sections = [...document.querySelectorAll('main section[id]')]
 const navLinks = [...document.querySelectorAll('[data-link]')]
