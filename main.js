@@ -1,4 +1,5 @@
 const projects = [
+  { title: 'BS-RoFormer Music Source Separation', year: 'Project', category: 'Audio machine learning', description: 'Training, validation, and inference workflows for a Band-Split RoFormer music source-separation model, configured for experiments with the MUSDB18 dataset.', tags: ['Python', 'BS-RoFormer', 'Audio ML'], color: 'c-sky', art: 'art-bars', url: 'https://github.com/orgtamfan/Music_Source_Separation-BS_RoFormer', facts: [['Model', 'Band-Split RoFormer'], ['Dataset', 'MUSDB18'], ['Workflows', 'Training, validation, and audio inference']] },
   { title: 'Waste Image Classifier', year: 'Project', category: 'Machine learning', description: 'A TensorFlow and Keras image classifier that predicts one of 11 waste-item classes, including PET, HDPE, glass, tin, cups, and bottles.', tags: ['Python', 'TensorFlow', 'Keras', 'Computer vision'], color: 'c-ink', art: 'art-ring', url: 'https://github.com/orgtamfan/bottle_waste_classification', facts: [['Classes', '11 waste-item categories'], ['Model', 'TensorFlow / Keras image classifier'], ['Try it', 'Run the desktop prediction script and select an image']] },
   { title: 'Laundry Management System', year: 'Project', category: 'Web app', description: 'A laundry operations app for staff, service packages, customer orders, payments, and transaction history.', tags: ['PHP', 'MySQL', 'JavaScript'], color: 'c-accent', art: 'art-blocks', url: 'https://github.com/orgtamfan/Laundry_App', facts: [['Features', 'Orders, payments, packages, staff'], ['Stack', 'PHP, MySQL, Vite frontend']] },
   { title: 'Gaming Community Sentiment Analysis', year: 'Project', category: 'Data', description: 'A research project comparing CS2 and VALORANT Reddit sentiment with human-reviewed labels and a Naive Bayes classification baseline.', tags: ['Python', 'NLP', 'scikit-learn'], color: 'c-sky', art: 'art-bars', url: 'https://github.com/orgtamfan/sentiment-analysis', facts: [['Methods', 'TF-IDF, Multinomial Naive Bayes'], ['Labels', 'Positive, neutral, negative']] },
@@ -135,9 +136,9 @@ document.querySelector('#form').addEventListener('submit', event => {
     valid = valid && !missing
   }
   if (!valid) return
-  const body = `Hi Olan,\n\n${message}\n\nFrom: ${name}${contact ? `\nContact: ${contact}` : ''}\nTopic: ${topic}`
+  const subject = encodeURIComponent(`Portfolio message: ${topic}`)
+  const body = encodeURIComponent(`Hi Olan,\n\n${message}\n\nFrom: ${name}${contact ? `\nContact: ${contact}` : ''}\nTopic: ${topic}`)
   const status = document.querySelector('#status')
-  status.textContent = 'Opening WhatsApp with your message.'
-  window.open(`https://api.whatsapp.com/send/?phone=%2B6289636344630&text=${encodeURIComponent(body)}`, '_blank', 'noopener,noreferrer')
+  status.textContent = 'Opening your email app with the message addressed to Olan.'
+  window.location.href = `mailto:olansiallagan6@gmail.com?subject=${subject}&body=${body}`
 })
-
