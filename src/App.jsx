@@ -118,8 +118,8 @@ function App() {
               GitHub
             </a>
             ,
-            <a href="https://api.whatsapp.com/send/?phone=%2B6289636344630&text&type=phone_number&app_absent=0" target="_blank" rel="noreferrer">
-              WhatsApp
+            <a href="https://www.linkedin.com/in/olan-siallagan-397a532b0/" target="_blank" rel="noreferrer">
+              LinkedIn
             </a>
           </p>
         </section>
