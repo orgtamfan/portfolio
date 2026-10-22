@@ -27,6 +27,9 @@ function renderProjects() {
       <span class="card-top"><span><span class="cat">${project.category}</span><h3>${project.title}</h3></span><span class="year">${project.year}</span></span>
       <span>${project.description}</span><ul class="tags">${project.tags.map(tag => `<li>${tag}</li>`).join('')}</ul>
     </button>`).join('')
+  requestAnimationFrame(() => {
+    grid.querySelectorAll('.card:not(.in)').forEach(element => revealObserver.observe(element))
+  })
 }
 
 function openProject(index, card) {
@@ -164,21 +167,13 @@ const revealObserver = new IntersectionObserver(entries => {
   })
 }, { threshold: 0.12 })
 document.querySelectorAll('.reveal').forEach(element => revealObserver.observe(element))
-setTimeout(() => {
-  document.querySelectorAll('.card').forEach(element => revealObserver.observe(element))
-}, 100)
 
-const aboutImage = document.querySelector('.about .photo img')
 const heroHeading = document.querySelector('.hero h1')
 window.addEventListener('scroll', () => {
   const scrollY = window.scrollY
 
   if (heroHeading) {
     heroHeading.style.transform = `translate3d(0, ${scrollY * -0.15}px, 0)`
-  }
-
-  if (aboutImage) {
-    aboutImage.style.transform = `translate3d(0, ${scrollY * 0.05}px, 0)`
   }
 }, { passive: true })
 

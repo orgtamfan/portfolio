@@ -571,11 +571,13 @@ ol {
   gap: 32px;
 }
 .photo {
+  position: relative;
   width: 100%;
   max-width: 360px;
   aspect-ratio: 1;
   display: grid;
   place-items: center;
+  overflow: hidden;
   background: var(--sky);
   border-radius: var(--radius);
   font-size: 14px;
@@ -584,7 +586,9 @@ ol {
 .photo img {
   width: 100%;
   height: 100%;
+  display: block;
   object-fit: cover;
+  object-position: center;
   border-radius: inherit;
 }
 .about-main {
