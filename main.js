@@ -83,8 +83,44 @@ menuButton.addEventListener('click', () => {
   menuButton.setAttribute('aria-expanded', String(open))
   menuButton.setAttribute('aria-label', open ? 'Close menu' : 'Open menu')
 })
-let navScrollFrame = null
+let scrollFrame = null
 let savedScrollBehavior = null
+function animateWindowScroll(destinationY, duration) {
+  if (scrollFrame !== null) cancelAnimationFrame(scrollFrame)
+  if (savedScrollBehavior !== null) {
+    document.documentElement.style.scrollBehavior = savedScrollBehavior
+    savedScrollBehavior = null
+  }
+
+  const currentY = window.scrollY
+  if (Math.abs(destinationY - currentY) < 2) {
+    document.documentElement.scrollTop = destinationY
+    return
+  }
+
+  const distance = destinationY - currentY
+  const startTime = performance.now()
+  savedScrollBehavior = document.documentElement.style.scrollBehavior
+  document.documentElement.style.scrollBehavior = 'auto'
+
+  const animate = now => {
+    const progress = Math.min((now - startTime) / duration, 1)
+    const easedProgress = 1 - Math.pow(1 - progress, 4)
+    document.documentElement.scrollTop = currentY + distance * easedProgress
+
+    if (progress < 1) {
+      scrollFrame = requestAnimationFrame(animate)
+    } else {
+      scrollFrame = null
+      document.documentElement.scrollTop = destinationY
+      document.documentElement.style.scrollBehavior = savedScrollBehavior
+      savedScrollBehavior = null
+    }
+  }
+
+  scrollFrame = requestAnimationFrame(animate)
+}
+
 nav.addEventListener('click', event => {
   const link = event.target.closest('a[href^="#"]')
   if (!link) return
@@ -94,52 +130,19 @@ nav.addEventListener('click', event => {
   if (!target) return
 
   event.preventDefault()
-  if (navScrollFrame !== null) cancelAnimationFrame(navScrollFrame)
-  if (savedScrollBehavior !== null) {
-    document.documentElement.style.scrollBehavior = savedScrollBehavior
-    savedScrollBehavior = null
-  }
-
   history.pushState(null, '', link.hash)
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const currentY = window.scrollY
   const scrollMargin = parseFloat(getComputedStyle(target).scrollMarginTop) || 0
   const destinationY = Math.max(0, target.getBoundingClientRect().top + currentY - scrollMargin)
-
-  if (reduceMotion || Math.abs(destinationY - currentY) < 2) {
-    window.scrollTo({ top: destinationY, behavior: 'auto' })
-    return
-  }
-
-  const distance = destinationY - currentY
-  const duration = Math.min(1200, Math.max(650, Math.abs(distance) * 0.5))
-  const startTime = performance.now()
-  savedScrollBehavior = document.documentElement.style.scrollBehavior
-  document.documentElement.style.scrollBehavior = 'auto'
-
-  const animateScroll = now => {
-    const progress = Math.min((now - startTime) / duration, 1)
-    const easedProgress = 1 - Math.pow(1 - progress, 4)
-    document.documentElement.scrollTop = currentY + distance * easedProgress
-
-    if (progress < 1) {
-      navScrollFrame = requestAnimationFrame(animateScroll)
-    } else {
-      navScrollFrame = null
-      document.documentElement.scrollTop = destinationY
-      document.documentElement.style.scrollBehavior = savedScrollBehavior
-      savedScrollBehavior = null
-    }
-  }
-
-  navScrollFrame = requestAnimationFrame(animateScroll)
+  const duration = Math.min(900, Math.max(500, Math.abs(destinationY - currentY) * 0.35))
+  animateWindowScroll(destinationY, duration)
 })
 
 const header = document.querySelector('#header')
 const progress = document.querySelector('#progress')
 const toTop = document.querySelector('#toTop')
 const year = document.querySelector('#year')
-year.textContent = new Date().getFullYear()
+if (year) year.textContent = new Date().getFullYear()
 function updateScroll() {
   const scrollable = document.documentElement.scrollHeight - window.innerHeight
   progress.style.width = `${scrollable > 0 ? window.scrollY / scrollable * 100 : 0}%`
@@ -148,7 +151,9 @@ function updateScroll() {
 }
 window.addEventListener('scroll', updateScroll, { passive: true })
 updateScroll()
-toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }))
+toTop.addEventListener('click', () => {
+  animateWindowScroll(0, Math.min(900, Math.max(500, window.scrollY * 0.35)))
+})
 
 const revealObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
@@ -169,7 +174,7 @@ window.addEventListener('scroll', () => {
   const scrollY = window.scrollY
 
   if (heroHeading) {
-    heroHeading.style.transform = `translate3d(0, ${scrollY * 0.15}px, 0)`
+    heroHeading.style.transform = `translate3d(0, ${scrollY * -0.15}px, 0)`
   }
 
   if (aboutImage) {
