@@ -9,10 +9,10 @@ const projects = [
     url: 'https://github.com/orgtamfan/Music_Source_Separation-BS_RoFormer',
   },
   {
-    name: 'Waste Image Classifier',
+    name: 'Waste Image Classifier & Detection',
     description:
-      "A TensorFlow/Keras image classifier that recognizes 11 waste-item categories using MobileNetV2 transfer learning, with scripts to train the model and predict an image's class.",
-    technologies: 'Python | TensorFlow | Keras | MobileNetV2',
+      'Computer vision project with MobileNetV2 transfer learning and YOLO object detection. Supports static 11-category classification and real-time webcam material detection with bounding boxes.',
+    technologies: 'Python | TensorFlow | YOLO | OpenCV | MobileNetV2',
     url: 'https://github.com/orgtamfan/bottle_waste_classification',
   },
   {
