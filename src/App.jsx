@@ -32,9 +32,9 @@ const projects = [
   {
     name: 'Sentiment Analysis of Gaming Communities',
     description:
-      'A research project comparing sentiment in CS2 and VALORANT Reddit communities. It prepares human-reviewed labels and evaluates a TF-IDF and Multinomial Naive Bayes classifier across positive, neutral, and negative comments.',
-    technologies: 'Python | scikit-learn | VADER | NLP',
-    url: 'https://github.com/orgtamfan/sentiment-analysis',
+      'Reddit comment sentiment classification across CS2 and VALORANT communities (~10,000 comments), comparing Multinomial Naive Bayes and Support Vector Machine (SVM) models across positive, neutral, and negative labels.',
+    technologies: 'Python | scikit-learn | SVM | Naive Bayes | NLP',
+    url: 'https://github.com/orgtamfan/classification-sentiment',
   },
   {
     name: 'YouTube Audio & Video Downloader',
