@@ -16,6 +16,13 @@ const projects = [
     url: 'https://github.com/orgtamfan/bottle_waste_classification',
   },
   {
+    name: 'Kost Management System',
+    description:
+      'A Laravel web application for boarding house management, handling tenants, room allocations, billing and payments, tenant issue reports, and announcements.',
+    technologies: 'PHP | Laravel | MySQL | Blade',
+    url: 'https://github.com/orgtamfan/kost_management',
+  },
+  {
     name: 'Laundry Management System',
     description:
       'A PHP and MySQL web app for managing laundry staff, service packages, customer orders, payments, and transaction history across wash, dry-cleaning, and per-item services.',
